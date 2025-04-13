@@ -141,7 +141,7 @@ Module.register("MMM-SingleStock-Yahoo", {
       // this.handleReturnedPosts(payload);
       this._processResponse(payload);
     } else if (notification === "SINGLE_STOCK_ERROR") {
-      console.log(payload);
+      console.log("MMM-SingleStock-Yahoo", payload);
     }
 
     // this.initializeRefreshDom(shouldUpdateImmediately);
@@ -161,7 +161,10 @@ Module.register("MMM-SingleStock-Yahoo", {
         this.viewModel.change = ((change / price) * 100).toFixed(2);
         break;
       default:
-        this.viewModel.change = change > 0 ? `+${change}` : `${change}`;
+        this.viewModel.change =
+          this.viewModel.change > 0
+            ? `+${this.viewModel.change}`
+            : `${this.viewModel.change}`;
         break;
     }
 
