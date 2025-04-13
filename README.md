@@ -43,7 +43,7 @@ To use this module follow these steps:
 1. Clone this repository to the `modules` folder of your MagicMirror:
 
 ```bash
-git clone https://github.com/balassy/MMM-SingleStock.git
+git clone https://github.com/kjb085/MMM-SingleStock-Yahoo.git
 ```
 
 2. Add the following configuration block to the modules array in the `config/config.js` file:
@@ -52,11 +52,10 @@ git clone https://github.com/balassy/MMM-SingleStock.git
 var config = {
   modules: [
     {
-      module: 'MMM-SingleStock',
+      module: 'MMM-SingleStock-Yahoo',
       position: 'top_right',
       config: {
         stockSymbol: 'GOOG',
-        apiToken: 'YOUR_TOKEN',  // Unique, private API key obtained from https://iexcloud.io/console/tokens
         updateInterval: 3600000, // 1 hour in milliseconds
         showChange: true,        // false | true
         changeType: '',          // 'percent' | ''
@@ -74,7 +73,6 @@ var config = {
 | Option           | Description
 |----------------- |-----------
 | `stockSymbol`    | **REQUIRED** The symbol of the stock of what the value should be displayed in this module. <br><br> **Type:** `string` <br>**Default value:** `GOOG`
-| `apiToken`       | **REQUIRED** Your unique, private API key for the IEX Cloud you can obtain from https://iexcloud.io/console/tokens. <br><br> **Type:** `string` <br>**Default value:** `""` (empty string)
 | `updateInterval` | *Optional* The frequency of when the module should query the current price of the stock. <br><br>**Type:** `int` (milliseconds) <br>**Default value:** `3600000` milliseconds (1 hour)
 | `showChange`     | *Optional* Determines whether the price difference should be also displayed. <br><br>**Type:** `boolean` <br>**Default value:** `true` (yes, the price difference is displayed)
 |`changeType`      | *Optional* Allows stock change to be shown as the raw value or as a percent.<br><br>**Type:** `string` <br>**Default Value**: `""` (empty string)<br>**Possible values:** <br>`percent`: Show the change as a percent rather than the raw value.
@@ -109,10 +107,6 @@ npm install
 ```bash
 npm run lint
 ```
-
-## Got feedback?
-
-Your feedback is more than welcome, please send your suggestions, feature requests or bug reports as [Github issues](https://github.com/balassy/MMM-SingleStock/issues).
 
 ## Acknowledments
 
