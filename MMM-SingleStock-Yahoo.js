@@ -138,8 +138,9 @@ Module.register("MMM-SingleStock-Yahoo", {
         !isRotatingPosts || this.config.forceImmediateUpdate;
 
     if (notification === "SINGLE_STOCK_DATA") {
-      // this.handleReturnedPosts(payload);
-      this._processResponse(payload);
+      if (this.config.stockSymbol == payload.symbol) {
+        this._processResponse(payload);
+      }
     } else if (notification === "SINGLE_STOCK_ERROR") {
       console.log("MMM-SingleStock-Yahoo", payload);
     }

@@ -55,7 +55,11 @@ module.exports = NodeHelper.create({
             this.sendData({
               price: result.regularMarketPrice,
               prevClose: result.chartPreviousClose,
-              change: result.regularMarketPrice - result.chartPreviousClose,
+              change: parseFloat(
+                (result.regularMarketPrice - result.chartPreviousClose).toFixed(
+                  2
+                )
+              ),
               symbol: result.symbol,
               shortName: result.shortName,
             });
