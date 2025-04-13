@@ -1,9 +1,9 @@
 {
-  "name": "MMM-SingleStock",
+  "name": "MMM-SingleStock-Yahoo",
   "version": "2.2.1",
   "description": "MagicMirror module that displays the stock price of a single company.",
-  "main": "MMM-SingleStock.js",
-  "author": "György Balássy",
+  "main": "MMM-SingleStock-Yahoo.js",
+  "author": "Kenn Breece",
   "license": "MIT",
   "scripts": {
     "lint": "npm run jsonlint & npm run eslint & npm run markdownlint",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/balassy/MMM-SingleStock"
+    "url": "git://github.com/kjb085/MMM-SingleStock-Yahoo"
   },
   "keywords": [
     "MagicMirror",
