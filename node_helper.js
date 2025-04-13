@@ -45,12 +45,12 @@ module.exports = NodeHelper.create({
         if (response.statusCode === 200) {
           const jsonBody = JSON.parse(body);
           if (
-            typeof jsonBody.data.chart !== "undefined" ||
-            typeof jsonBody.data.chart.result !== "undefined" ||
-            typeof jsonBody.data.chart.result[0] !== "undefined" ||
-            typeof jsonBody.data.chart.result[0].meta !== "undefined"
+            typeof jsonBody.chart !== "undefined" ||
+            typeof jsonBody.chart.result !== "undefined" ||
+            typeof jsonBody.chart.result[0] !== "undefined" ||
+            typeof jsonBody.chart.result[0].meta !== "undefined"
           ) {
-            const result = jsonBody.data.chart.result[0].meta;
+            const result = jsonBody.chart.result[0].meta;
 
             this.sendData({
               price: result.regularMarketPrice,
