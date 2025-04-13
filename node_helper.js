@@ -14,7 +14,6 @@ module.exports = NodeHelper.create({
   },
 
   socketNotificationReceived(notification, payload) {
-    console.log("Received", { notification, payload });
     if (notification === "SINGLE_STOCK_CONFIG") {
       this.config = payload.config;
       this.getData();
