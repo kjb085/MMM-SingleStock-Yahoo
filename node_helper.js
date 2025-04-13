@@ -31,7 +31,7 @@ module.exports = NodeHelper.create({
   },
 
   getData() {
-    const url = this.url + this.config.symbol;
+    const url = this.url + this.config.stockSymbol;
 
     request(
       {
