@@ -25,14 +25,27 @@ Module.register("MMM-SingleStock-Yahoo", {
   },
 
   start() {
-    const self = this;
     this.viewModel = null;
     this.hasData = false;
 
-    this._getData(() => self.updateDom());
+    // this._getData(() => self.updateDom());
 
-    setInterval(() => {
-      self._getData(() => self.updateDom());
+    // setInterval(() => {
+    //   self._getData(() => self.updateDom());
+    // }, this.config.updateInterval);
+    this.initializeUpdate();
+    this.setUpdateInterval();
+  },
+
+  initializeUpdate() {
+    this.sendSocketNotification("SINGLE_STOCK_CONFIG", {
+      config: this.nodeHelperConfig,
+    });
+  },
+
+  setUpdateInterval() {
+    this.updater = setInterval(() => {
+      this.initializeUpdate();
     }, this.config.updateInterval);
   },
 
@@ -93,40 +106,55 @@ Module.register("MMM-SingleStock-Yahoo", {
     return wrapper;
   },
 
-  _getData(onCompleteCallback) {
-    const self = this;
+  // _getData(onCompleteCallback) {
+  //   const self = this;
 
-    const url = `https://query2.finance.yahoo.com/v8/finance/chart/${this.config.stockSymbol}`;
+  //   const url = `https://query2.finance.yahoo.com/v8/finance/chart/${this.config.stockSymbol}`;
 
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", url, true);
-    xhr.onreadystatechange = function onReadyStateChange() {
-      if (this.readyState === 4) {
-        if (this.status === 200) {
-          self._processResponse(this.response);
-          onCompleteCallback();
-        } else {
-          Log.error(
-            self.name,
-            `MMM-SingleStock-Yahoo: Failed to load data. XHR status: ${this.status}`
-          );
-        }
-      }
-    };
+  //   const xhr = new XMLHttpRequest();
+  //   xhr.open("GET", url, true);
+  //   xhr.onreadystatechange = function onReadyStateChange() {
+  //     if (this.readyState === 4) {
+  //       if (this.status === 200) {
+  //         self._processResponse(this.response);
+  //         onCompleteCallback();
+  //       } else {
+  //         Log.error(
+  //           self.name,
+  //           `MMM-SingleStock-Yahoo: Failed to load data. XHR status: ${this.status}`
+  //         );
+  //       }
+  //     }
+  //   };
 
-    xhr.send();
+  //   xhr.send();
+  // },
+
+  socketNotificationReceived(notification, payload) {
+    // This is needed so that initializeRefreshDom doesn't wait
+    // for the existing rotator to invoke it
+    let isRotatingPosts = this.rotator !== null,
+      shouldUpdateImmediately =
+        !isRotatingPosts || this.config.forceImmediateUpdate;
+
+    if (notification === "SINGLE_STOCK_DATA") {
+      // this.handleReturnedPosts(payload);
+      this._processResponse(payload);
+    } else if (notification === "SINGLE_STOCK_ERROR") {
+      console.log(payload);
+    }
+
+    // this.initializeRefreshDom(shouldUpdateImmediately);
   },
 
-  _processResponse(responseBody) {
-    const response = JSON.parse(responseBody);
-    const result = response.chart.results[0].meta;
-    const price = result.regularMarketPrice;
-    const prevClose = result.chartPreviousClose;
-    const change = price - prevClose;
+  _processResponse(initialViewModel) {
+    // const response = JSON.parse(responseBody);
+    // const result = response.chart.results[0].meta;
+    // const price = result.regularMarketPrice;
+    // const prevClose = result.chartPreviousClose;
+    // const change = price - prevClose;
 
-    this.viewModel = {
-      price: price,
-    };
+    this.viewModel = initialViewModel;
 
     switch (this.config.changeType) {
       case "percent":
@@ -153,9 +181,9 @@ Module.register("MMM-SingleStock-Yahoo", {
     }
 
     if (!this.hasData) {
-      this.updateDom();
+      this.hasData = true;
     }
 
-    this.hasData = true;
+    this.updateDom();
   },
 });
