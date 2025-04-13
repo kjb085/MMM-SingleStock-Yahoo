@@ -39,7 +39,7 @@ Module.register("MMM-SingleStock-Yahoo", {
 
   initializeUpdate() {
     this.sendSocketNotification("SINGLE_STOCK_CONFIG", {
-      config: this.nodeHelperConfig,
+      config: this.config,
     });
   },
 
