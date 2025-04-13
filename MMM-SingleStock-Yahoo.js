@@ -63,7 +63,10 @@ Module.register("MMM-SingleStock-Yahoo", {
       priceEl.appendChild(labelEl);
 
       const valueEl = document.createElement("span");
-      valueEl.innerHTML = ` \$${this.viewModel.price}`;
+      valueEl.innerHTML = ` ${this.viewModel.price.toLocaleString("en-US", {
+        style: "currency",
+        currency: "USD",
+      })}`;
       if (this.config.colorized) {
         valueEl.classList = "bright";
       }
