@@ -56,6 +56,8 @@ module.exports = NodeHelper.create({
               price: result.regularMarketPrice,
               prevClose: result.chartPreviousClose,
               change: result.regularMarketPrice - result.chartPreviousClose,
+              symbol: result.symbol,
+              shortName: result.shortName,
             });
           } else {
             this.sendError("Unexpected response");

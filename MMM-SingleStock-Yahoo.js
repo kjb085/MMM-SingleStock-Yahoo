@@ -170,10 +170,10 @@ Module.register("MMM-SingleStock-Yahoo", {
 
     switch (this.config.label) {
       case "symbol":
-        this.viewModel.label = result.symbol;
+        this.viewModel.label = this.viewModel.symbol;
         break;
       case "companyName":
-        this.viewModel.label = result.shortName;
+        this.viewModel.label = this.viewModel.shortName;
         break;
       case "none":
         this.viewModel.label = "";
