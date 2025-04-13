@@ -44,25 +44,21 @@ module.exports = NodeHelper.create({
       (_error, response, body) => {
         if (response.statusCode === 200) {
           const jsonBody = JSON.parse(body);
-          if (typeof jsonBody.data !== "undefined") {
-            if (
-              typeof jsonBody.data.chart !== "undefined" ||
-              typeof jsonBody.data.chart.result !== "undefined" ||
-              typeof jsonBody.data.chart.result[0] !== "undefined" ||
-              typeof jsonBody.data.chart.result[0].meta !== "undefined"
-            ) {
-              const result = jsonBody.data.chart.result[0].meta;
+          if (
+            typeof jsonBody.data.chart !== "undefined" ||
+            typeof jsonBody.data.chart.result !== "undefined" ||
+            typeof jsonBody.data.chart.result[0] !== "undefined" ||
+            typeof jsonBody.data.chart.result[0].meta !== "undefined"
+          ) {
+            const result = jsonBody.data.chart.result[0].meta;
 
-              this.sendData({
-                price: result.regularMarketPrice,
-                prevClose: result.chartPreviousClose,
-                change: result.regularMarketPrice - result.chartPreviousClose,
-              });
-            } else {
-              this.sendError("Unexpected response");
-            }
+            this.sendData({
+              price: result.regularMarketPrice,
+              prevClose: result.chartPreviousClose,
+              change: result.regularMarketPrice - result.chartPreviousClose,
+            });
           } else {
-            this.sendError(["Invalid response body", body]);
+            this.sendError("Unexpected response");
           }
         } else {
           this.sendError("Request status code: " + response.statusCode);
