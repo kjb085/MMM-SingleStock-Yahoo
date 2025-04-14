@@ -51,9 +51,11 @@ Module.register("MMM-SingleStock-Yahoo", {
 
   getDom() {
     const wrapper = document.createElement("div");
+    wrapper.style = "display: flex; flex-direction: column;";
 
     if (this.viewModel) {
       const priceEl = document.createElement("div");
+      priceEl.style = "display: flex; justify-content: space-between;";
       if (this.config.minimal) {
         priceEl.classList = "small";
       }
@@ -76,6 +78,7 @@ Module.register("MMM-SingleStock-Yahoo", {
 
       if (this.config.showChange) {
         const changeEl = document.createElement("div");
+        changeEl.style = "align-self: flex-end;";
 
         changeEl.innerHTML =
           this.config.changeType === "percent"
